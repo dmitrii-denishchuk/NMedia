@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Nmedia</string>
     <string name="greetings">Nmedia!</string>
+    <string name="avatar_description" translatable="false">Avatar</string>
+    <string name="post_header" translatable="false">Нетология. Университет интернет-профессий</string>
+    <string name="post_date" translatable="false">5 мая в 15:41</string>
+    <string name="menu_button">Menu</string>
+    <string name="share_button">Share</string>
+    <string name="like_button">Like</string>
+    <string name="views_button">Views</string>
 </resources>
