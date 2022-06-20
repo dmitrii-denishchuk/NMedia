@@ -4,140 +4,141 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/big_common_spacing"
+    android:paddingTop="@dimen/big_common_spacing"
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/avatar_image_view"
+        android:id="@+id/avatarImageView"
         android:layout_width="@dimen/avatar_view_size"
         android:layout_height="@dimen/avatar_view_size"
+        android:layout_marginStart="@dimen/big_common_spacing"
         android:contentDescription="@string/avatar_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars[2]" />
 
     <TextView
-        android:id="@+id/post_header"
+        android:id="@+id/postHeader"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/big_common_spacing"
-        android:layout_marginEnd="@dimen/big_common_spacing"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/post_header"
-        app:layout_constraintBottom_toTopOf="@id/post_date"
-        app:layout_constraintEnd_toStartOf="@id/menu_button"
-        app:layout_constraintStart_toEndOf="@id/avatar_image_view"
-        app:layout_constraintTop_toTopOf="@id/avatar_image_view"
+        app:layout_constraintBottom_toTopOf="@id/postDate"
+        app:layout_constraintEnd_toStartOf="@id/menuButton"
+        app:layout_constraintStart_toEndOf="@id/avatarImageView"
+        app:layout_constraintTop_toTopOf="@id/avatarImageView"
         app:layout_constraintVertical_chainStyle="spread" />
 
     <TextView
-        android:id="@+id/post_date"
+        android:id="@+id/postDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/post_date"
-        app:layout_constraintBottom_toBottomOf="@id/avatar_image_view"
-        app:layout_constraintEnd_toEndOf="@id/post_header"
-        app:layout_constraintStart_toStartOf="@id/post_header"
-        app:layout_constraintTop_toBottomOf="@id/post_header" />
+        app:layout_constraintBottom_toBottomOf="@id/avatarImageView"
+        app:layout_constraintEnd_toEndOf="@id/postHeader"
+        app:layout_constraintStart_toStartOf="@id/postHeader"
+        app:layout_constraintTop_toBottomOf="@id/postHeader" />
 
     <ImageButton
-        android:id="@+id/menu_button"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
+        android:id="@+id/menuButton"
+        android:layout_width="@dimen/avatar_view_size"
+        android:layout_height="@dimen/avatar_view_size"
+        android:layout_marginEnd="@dimen/small_common_spacing"
         android:background="@android:color/transparent"
         android:contentDescription="@string/menu_button"
-        app:layout_constraintBottom_toBottomOf="@id/avatar_image_view"
+        app:layout_constraintBottom_toBottomOf="@id/avatarImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/avatar_image_view"
+        app:layout_constraintTop_toTopOf="@id/avatarImageView"
         app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
     <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
+        android:id="@+id/barrierBottomPostHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
         app:barrierMargin="@dimen/big_common_spacing"
-        app:constraint_referenced_ids="avatar_image_view, post_date, menu_button"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="80dp" />
+        app:constraint_referenced_ids="avatarImageView, postDate, menuButton" />
 
     <TextView
         android:id="@+id/message"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="299dp"
+        android:layout_marginStart="@dimen/big_common_spacing"
+        android:layout_marginEnd="@dimen/big_common_spacing"
         android:justificationMode="inter_word"
-        app:layout_constraintTop_toTopOf="@id/barrier"
+        app:layout_constraintTop_toTopOf="@id/barrierBottomPostHeader"
         app:layout_constraintVertical_chainStyle="spread"
         tools:text="@tools:sample/lorem/random" />
 
-    <ImageButton
-        android:id="@+id/likes_button"
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrierBottomMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/big_common_spacing"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="message"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="80dp" />
+
+    <ImageButton
+        android:id="@+id/likesButton"
+        android:layout_width="@dimen/avatar_view_size"
+        android:layout_height="@dimen/avatar_view_size"
         android:background="@android:color/transparent"
         android:contentDescription="@string/like_button"
-        app:layout_constraintStart_toStartOf="@id/message"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/message"
         app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
 
     <TextView
-        android:id="@+id/likes_count"
-        android:layout_width="wrap_content"
+        android:id="@+id/likesCount"
+        android:layout_width="32dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_common_spacing"
-        android:singleLine="true"
-        android:text="3578"
-        app:layout_constraintBottom_toBottomOf="@id/likes_button"
-        app:layout_constraintStart_toEndOf="@id/likes_button"
-        app:layout_constraintTop_toTopOf="@id/likes_button"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@id/likesButton"
+        app:layout_constraintStart_toEndOf="@id/likesButton"
+        app:layout_constraintTop_toTopOf="@id/likesButton"
         tools:layout_editor_absoluteX="104dp"
         tools:layout_editor_absoluteY="111dp" />
 
     <ImageButton
-        android:id="@+id/share_button"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
-        android:layout_marginStart="@dimen/big_common_spacing"
-        android:layout_marginTop="@dimen/big_common_spacing"
+        android:id="@+id/shareButton"
+        android:layout_width="@dimen/avatar_view_size"
+        android:layout_height="@dimen/avatar_view_size"
+        android:layout_marginStart="32dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/share_button"
-        app:layout_constraintStart_toEndOf="@id/likes_count"
+        app:layout_constraintStart_toEndOf="@id/likesButton"
         app:layout_constraintTop_toBottomOf="@id/message"
         app:srcCompat="@drawable/ic_baseline_share_24" />
 
     <TextView
-        android:id="@+id/share_count"
+        android:id="@+id/shareCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_common_spacing"
-        android:singleLine="true"
-        android:text="8"
-        app:layout_constraintBottom_toBottomOf="@id/share_button"
-        app:layout_constraintStart_toEndOf="@id/share_button"
-        app:layout_constraintTop_toTopOf="@id/share_button" />
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@id/shareButton"
+        app:layout_constraintStart_toEndOf="@id/shareButton"
+        app:layout_constraintTop_toTopOf="@id/shareButton" />
 
     <ImageButton
         android:id="@+id/views"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
-        android:layout_marginTop="@dimen/big_common_spacing"
-        android:layout_marginEnd="@dimen/small_common_spacing"
+        android:layout_width="@dimen/avatar_view_size"
+        android:layout_height="@dimen/avatar_view_size"
         android:background="@android:color/transparent"
         android:contentDescription="@string/views_button"
-        app:layout_constraintEnd_toStartOf="@id/views_count"
+        app:layout_constraintEnd_toStartOf="@id/viewsCount"
         app:layout_constraintTop_toBottomOf="@id/message"
         app:srcCompat="@drawable/ic_baseline_visibility_24" />
 
     <TextView
-        android:id="@+id/views_count"
+        android:id="@+id/viewsCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:singleLine="true"
-        android:text="13"
+        android:text=""
         app:layout_constraintBottom_toBottomOf="@id/views"
         app:layout_constraintEnd_toEndOf="@id/message"
         app:layout_constraintTop_toTopOf="@id/views" />
