@@ -47,7 +47,6 @@
         android:id="@+id/menuButton"
         android:layout_width="@dimen/avatar_view_size"
         android:layout_height="@dimen/avatar_view_size"
-        android:layout_marginEnd="@dimen/small_common_spacing"
         android:background="@android:color/transparent"
         android:contentDescription="@string/menu_button"
         app:layout_constraintBottom_toBottomOf="@id/avatarImageView"
@@ -66,13 +65,13 @@
     <TextView
         android:id="@+id/message"
         android:layout_width="match_parent"
-        android:layout_height="299dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/big_common_spacing"
         android:layout_marginEnd="@dimen/big_common_spacing"
         android:justificationMode="inter_word"
+        android:text="@string/post_message"
         app:layout_constraintTop_toTopOf="@id/barrierBottomPostHeader"
-        app:layout_constraintVertical_chainStyle="spread"
-        tools:text="@tools:sample/lorem/random" />
+        app:layout_constraintVertical_chainStyle="spread" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrierBottomMessage"
@@ -84,7 +83,7 @@
         tools:layout_editor_absoluteY="80dp" />
 
     <ImageButton
-        android:id="@+id/likesButton"
+        android:id="@+id/likeButton"
         android:layout_width="@dimen/avatar_view_size"
         android:layout_height="@dimen/avatar_view_size"
         android:background="@android:color/transparent"
@@ -98,9 +97,9 @@
         android:layout_width="32dp"
         android:layout_height="wrap_content"
         android:text=""
-        app:layout_constraintBottom_toBottomOf="@id/likesButton"
-        app:layout_constraintStart_toEndOf="@id/likesButton"
-        app:layout_constraintTop_toTopOf="@id/likesButton"
+        app:layout_constraintBottom_toBottomOf="@id/likeButton"
+        app:layout_constraintStart_toEndOf="@id/likeButton"
+        app:layout_constraintTop_toTopOf="@id/likeButton"
         tools:layout_editor_absoluteX="104dp"
         tools:layout_editor_absoluteY="111dp" />
 
@@ -108,15 +107,14 @@
         android:id="@+id/shareButton"
         android:layout_width="@dimen/avatar_view_size"
         android:layout_height="@dimen/avatar_view_size"
-        android:layout_marginStart="32dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/share_button"
-        app:layout_constraintStart_toEndOf="@id/likesButton"
+        app:layout_constraintStart_toEndOf="@id/likesCount"
         app:layout_constraintTop_toBottomOf="@id/message"
         app:srcCompat="@drawable/ic_baseline_share_24" />
 
     <TextView
-        android:id="@+id/shareCount"
+        android:id="@+id/sharesCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
