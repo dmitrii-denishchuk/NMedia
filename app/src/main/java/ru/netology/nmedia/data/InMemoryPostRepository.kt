@@ -19,16 +19,16 @@ class InMemoryPostRepository : PostRepository {
 
     override val data = MutableLiveData(post)
 
-    override fun like(): String {
+    override fun like() {
         post = post.copy(isLiked = !post.isLiked)
         if (post.isLiked) post.likes++ else post.likes--
         data.value = post
-        return slicer(post.likes)
     }
 
-    override fun share(): String {
+    override fun share() {
+        post = post.copy()
         post.shares++
-        return slicer(post.shares)
+        data.value = post
     }
 }
 

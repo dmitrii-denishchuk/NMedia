@@ -5,6 +5,6 @@ import ru.netology.nmedia.dto.Post
 
 interface PostRepository {
     val data: LiveData<Post>
-    fun like(): String
-    fun share(): String
+    fun like()
+    fun share()
 }

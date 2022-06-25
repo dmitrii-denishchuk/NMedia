@@ -15,7 +15,7 @@
         android:contentDescription="@string/avatar_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars[2]" />
+        app:srcCompat="@drawable/ic_netology" />
 
     <TextView
         android:id="@+id/postHeader"

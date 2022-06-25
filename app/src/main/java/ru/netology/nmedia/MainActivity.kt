@@ -31,11 +31,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.likeButton.setOnClickListener {
-            binding.likesCount.text = viewModel.clickedLike()
+            viewModel.clickedLike()
         }
 
         binding.shareButton.setOnClickListener {
-            binding.sharesCount.text = viewModel.clickedShare()
+            viewModel.clickedShare()
         }
     }
 }

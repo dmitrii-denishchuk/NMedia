@@ -15,7 +15,7 @@
         android:contentDescription="@string/avatar_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars[2]" />
+        app:srcCompat="@drawable/ic_netology" />
 
     <TextView
         android:id="@+id/postHeader"
@@ -60,7 +60,8 @@
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
         app:barrierMargin="@dimen/big_common_spacing"
-        app:constraint_referenced_ids="avatarImageView, postDate, menuButton" />
+        app:constraint_referenced_ids="avatarImageView, postDate, menuButton"
+        tools:layout_editor_absoluteY="80dp" />
 
     <TextView
         android:id="@+id/message"
