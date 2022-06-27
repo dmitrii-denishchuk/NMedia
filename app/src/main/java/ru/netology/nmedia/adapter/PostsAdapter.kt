@@ -19,7 +19,6 @@ class PostsAdapter(
 ) : ListAdapter<Post, PostsAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        Log.d("PostAdapter", "onCreateViewHolder")
         val binding = PostCardLayoutBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
@@ -27,7 +26,6 @@ class PostsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d("PostAdapter", "onBindViewHolder $position")
         holder.bind(getItem(position))
     }
 
