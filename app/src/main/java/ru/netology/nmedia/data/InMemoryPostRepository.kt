@@ -6,29 +6,45 @@ import java.math.RoundingMode
 import java.util.*
 
 class InMemoryPostRepository : PostRepository {
+    private var posts
+        get() = checkNotNull(data.value)
+        set(value) {
+            data.value = value
+        }
 
-    private var post = Post(
-        id = 1,
-        postHeader = "Нетология. Университет интернет-профессий",
-        date = Date().toString(),
-        isLiked = false,
-        likes = 999,
-        shares = 995,
-        views = 13
-    )
+    override val data: MutableLiveData<List<Post>>
 
-    override val data = MutableLiveData(post)
-
-    override fun like() {
-        post = post.copy(isLiked = !post.isLiked)
-        if (post.isLiked) post.likes++ else post.likes--
-        data.value = post
+    init {
+        val initialPost = List(100) { index ->
+            Post(
+                id = index + 1,
+                postHeader = "Нетология. Университет интернет-профессий",
+                date = Date().toString(),
+                isLiked = false,
+                likes = 999999,
+                shares = 995,
+                views = (0..1000000).random()
+            )
+        }
+        data = MutableLiveData(initialPost)
     }
 
-    override fun share() {
-        post = post.copy()
-        post.shares++
-        data.value = post
+    override fun likeById(id: Int) {
+        posts = posts.map { post ->
+            if (post.id == id) post.copy(isLiked = !post.isLiked)
+            else post
+        }
+        posts.map { post ->
+            if (post.isLiked) post.copy(likes = post.likes++)
+            else post.copy(likes = post.likes--)
+        }
+    }
+
+    override fun shareById(id: Int) {
+        posts = posts.map { post ->
+            if (post.id == id) post.copy(shares = post.shares + 1)
+            else post
+        }
     }
 }
 
