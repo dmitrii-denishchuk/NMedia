@@ -6,24 +6,28 @@ import java.math.RoundingMode
 import java.util.*
 
 class InMemoryPostRepository : PostRepository {
+
+    private var nextId = GENERATED_POST_AMOUNT
+
+    override val data: MutableLiveData<List<Post>>
+
     private var posts
         get() = checkNotNull(data.value)
         set(value) {
             data.value = value
         }
 
-    override val data: MutableLiveData<List<Post>>
-
     init {
-        val initialPost = List(100) { index ->
+        val initialPost = List(GENERATED_POST_AMOUNT) { index ->
             Post(
                 id = index + 1,
                 postHeader = "Нетология. Университет интернет-профессий",
                 date = Date().toString(),
+                message = "Тестовое сообщение № ${(1..100).random()}",
                 isLiked = false,
                 likes = 999999,
                 shares = 995,
-                views = (0..1000000).random()
+                views = (0..100).random()
             )
         }
         data = MutableLiveData(initialPost)
@@ -45,6 +49,28 @@ class InMemoryPostRepository : PostRepository {
             if (post.id == id) post.copy(shares = post.shares + 1)
             else post
         }
+    }
+
+    override fun removeById(id: Int) {
+        posts = posts.filter { it.id != id }
+    }
+
+    override fun createPost(post: Post) {
+        if (post.id == PostRepository.NEW_POST_ID) insert(post) else update(post)
+    }
+
+    private fun insert(post: Post) {
+        data.value = listOf(post.copy(id = ++nextId)) + posts
+    }
+
+    private fun update(post: Post) {
+        data.value = posts.map {
+            if (it.id == post.id) post else it
+        }
+    }
+
+    private companion object {
+        const val GENERATED_POST_AMOUNT = 100
     }
 }
 
