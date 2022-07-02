@@ -65,6 +65,7 @@ class PostsAdapter(
             binding.shareButton.setOnClickListener {
                 clickListener.clickedShare(post)
             }
+            binding.menuButton.setOnClickListener { popupMenu.show() }
         }
 
         fun bind(post: Post) {
@@ -73,14 +74,10 @@ class PostsAdapter(
                 postHeader.text = post.postHeader
                 postDate.text = post.date
                 message.text = post.message
-                likesCount.text = slicer(post.likes)
-                sharesCount.text = slicer(post.shares)
-                viewsCount.text = post.views.toString()
-                likeButton.setImageResource(
-                    if (post.isLiked) R.drawable.ic_baseline_favorite_24
-                    else R.drawable.ic_baseline_favorite_border_24
-                )
-                menuButton.setOnClickListener { popupMenu.show() }
+                likeButton.text = slicer(post.likes)
+                shareButton.text = slicer(post.shares)
+                views.text = post.views.toString()
+                likeButton.isChecked = post.isLiked
             }
         }
     }
