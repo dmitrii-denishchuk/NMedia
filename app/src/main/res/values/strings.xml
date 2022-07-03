@@ -16,4 +16,5 @@
     <string name="cancel">Cancel</string>
     <string name="apply">Apply</string>
     <string name="edit_message">Cancel</string>
+    <string name="description_create_post">Create post</string>
 </resources>

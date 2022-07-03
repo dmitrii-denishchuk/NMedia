@@ -13,6 +13,7 @@ class PostViewModel : ViewModel(), PostsClickListeners {
     private val repository: PostRepository = InMemoryPostRepository()
 
     val data get() = repository.data
+    val shareEvent = SingleLiveEvent<Post>()
     val currentPost = MutableLiveData<Post?>(null)
 
     fun clickedCreate(message: String) {
@@ -34,7 +35,17 @@ class PostViewModel : ViewModel(), PostsClickListeners {
     }
 
     override fun clickedLike(post: Post) = repository.likeById(post.id)
-    override fun clickedShare(post: Post) = repository.shareById(post.id)
+    override fun clickedShare(post: Post) {
+        repository.shareById(post.id)
+        shareEvent.value = post
+    }
+
     override fun clickedRemove(post: Post) = repository.removeById(post.id)
-    override fun clickedEdit(post: Post) { currentPost.value = post }
+    override fun clickedEdit(post: Post) {
+        currentPost.value = post
+    }
+
+    fun onCreateNewPost(newPostMessage: String) {
+        // вроде сделано
+    }
 }
