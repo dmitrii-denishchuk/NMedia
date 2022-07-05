@@ -7,4 +7,5 @@ interface PostsClickListeners {
     fun clickedShare(post: Post)
     fun clickedRemove(post: Post)
     fun clickedEdit(post: Post)
+    fun clickedPlay(post: Post)
 }

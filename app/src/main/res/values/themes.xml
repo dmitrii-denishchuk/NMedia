@@ -55,4 +55,9 @@
         <item name="android:minHeight">@dimen/avatar_view_size</item>
     </style>
 
+    <style name="Widget.AppTheme.okButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton.Icon">
+        <item name="icon">@drawable/ic_baseline_close_24</item>
+        <item name="backgroundTint">#FF0000</item>
+    </style>
+
 </resources>

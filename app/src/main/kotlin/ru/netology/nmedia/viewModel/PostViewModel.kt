@@ -1,5 +1,6 @@
 package ru.netology.nmedia.viewModel
 
+import SingleLiveEvent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.netology.nmedia.clickListeners.PostsClickListeners
@@ -14,6 +15,8 @@ class PostViewModel : ViewModel(), PostsClickListeners {
 
     val data get() = repository.data
     val shareEvent = SingleLiveEvent<Post>()
+    val playEvent = SingleLiveEvent<Post>()
+
     val currentPost = MutableLiveData<Post?>(null)
 
     fun clickedCreate(message: String) {
@@ -28,24 +31,28 @@ class PostViewModel : ViewModel(), PostsClickListeners {
             isLiked = false,
             likes = 0,
             shares = 0,
-            views = 0
+            views = 0,
+            video = "https://youtu.be/hBTNyJ33LWI"
         )
         repository.createPost(somePost)
         currentPost.value = null
     }
 
     override fun clickedLike(post: Post) = repository.likeById(post.id)
-    override fun clickedShare(post: Post) {
-        repository.shareById(post.id)
-        shareEvent.value = post
-    }
 
     override fun clickedRemove(post: Post) = repository.removeById(post.id)
-    override fun clickedEdit(post: Post) {
-        currentPost.value = post
+
+    override fun clickedPlay(post: Post) {
+        playEvent.value = post
+        repository.views(post.id)
     }
 
-    fun onCreateNewPost(newPostMessage: String) {
-        // вроде сделано
+    override fun clickedShare(post: Post) {
+        shareEvent.value = post
+        repository.shareById(post.id)
+    }
+
+    override fun clickedEdit(post: Post) {
+        currentPost.value = post
     }
 }

@@ -33,7 +33,7 @@
         </activity>
 
         <activity
-            android:name=".activity.NewPostActivity"
+            android:name=".activity.NewOrEditPostActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>

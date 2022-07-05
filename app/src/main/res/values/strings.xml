@@ -11,10 +11,10 @@
     <string name="post_message" translatable="false">Пусто</string>
     <string name="remove">Remove</string>
     <string name="enter_text">Enter text</string>
-    <string name="save">Save</string>
     <string name="edit">Edit</string>
     <string name="cancel">Cancel</string>
     <string name="apply">Apply</string>
-    <string name="edit_message">Cancel</string>
-    <string name="description_create_post">Create post</string>
+    <string name="preview">Preview</string>
+    <string name="add_post">Add post</string>
+    <string name="play">Play</string>
 </resources>

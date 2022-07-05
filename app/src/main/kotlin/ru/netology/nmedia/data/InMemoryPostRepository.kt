@@ -27,7 +27,8 @@ class InMemoryPostRepository : PostRepository {
                 isLiked = false,
                 likes = 999999,
                 shares = 995,
-                views = (0..100).random()
+                views = (0..100).random(),
+                video = listOf("https://youtu.be/hBTNyJ33LWI", "").random()
             )
         }
         data = MutableLiveData(initialPost)
@@ -35,12 +36,12 @@ class InMemoryPostRepository : PostRepository {
 
     override fun likeById(id: Int) {
         posts = posts.map { post ->
-            if (post.id == id) post.copy(isLiked = !post.isLiked)
+            if (post.id == id)
+                post.copy(
+                    isLiked = !post.isLiked,
+                    likes = if (post.isLiked) post.likes - 1 else post.likes + 1
+                )
             else post
-        }
-        posts.map { post ->
-            if (post.isLiked) post.copy(likes = post.likes++)
-            else post.copy(likes = post.likes--)
         }
     }
 
@@ -59,6 +60,13 @@ class InMemoryPostRepository : PostRepository {
         if (post.id == PostRepository.NEW_POST_ID) insert(post) else update(post)
     }
 
+    override fun views(id: Int) {
+        posts = posts.map { post ->
+            if (post.id == id) post.copy(views = post.views + 1)
+            else post
+        }
+    }
+
     private fun insert(post: Post) {
         data.value = listOf(post.copy(id = ++nextId)) + posts
     }
@@ -70,20 +78,26 @@ class InMemoryPostRepository : PostRepository {
     }
 
     private companion object {
-        const val GENERATED_POST_AMOUNT = 100
+        const val GENERATED_POST_AMOUNT = 50
     }
 }
 
 fun slicer(count: Int): String {
     return when (count) {
         in 1_000..999_999 ->
-            if ((count.toDouble() / 1_000).toBigDecimal().setScale(1, RoundingMode.DOWN).toDouble() * 10 % 10 == 0.0)
+            if ((count.toDouble() / 1_000).toBigDecimal().setScale(1, RoundingMode.DOWN)
+                    .toDouble() * 10 % 10 == 0.0
+            )
                 (count / 1_000).toString() + "K"
-            else ((count.toDouble() / 1_000).toBigDecimal().setScale(1, RoundingMode.DOWN)).toString() + "K"
+            else ((count.toDouble() / 1_000).toBigDecimal()
+                .setScale(1, RoundingMode.DOWN)).toString() + "K"
         in 1_000_000..999_999_999 ->
-            if ((count.toDouble() / 1_000_000).toBigDecimal().setScale(1, RoundingMode.DOWN).toDouble() * 10 % 10 == 0.0)
+            if ((count.toDouble() / 1_000_000).toBigDecimal().setScale(1, RoundingMode.DOWN)
+                    .toDouble() * 10 % 10 == 0.0
+            )
                 (count / 1_000_000).toString() + "M"
-            else ((count.toDouble() / 1_000_000).toBigDecimal().setScale(1, RoundingMode.DOWN)).toString() + "M"
+            else ((count.toDouble() / 1_000_000).toBigDecimal()
+                .setScale(1, RoundingMode.DOWN)).toString() + "M"
         else -> count.toString()
     }
 }

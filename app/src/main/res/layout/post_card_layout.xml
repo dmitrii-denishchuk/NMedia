@@ -59,8 +59,44 @@
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
         app:barrierMargin="@dimen/big_common_spacing"
-        app:constraint_referenced_ids="avatarImageView, postDate, menuButton"
-        tools:layout_editor_absoluteY="80dp" />
+        app:constraint_referenced_ids="avatarImageView, postDate, menuButton" />
+
+    <ImageView
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/big_common_spacing"
+        android:layout_marginEnd="@dimen/big_common_spacing"
+        android:background="#C8C8C8"
+        android:contentDescription="@string/preview"
+        app:layout_constraintTop_toTopOf="@id/barrierBottomPostHeader"
+        app:srcCompat="@drawable/ic_banner_foreground" />
+
+    <ImageButton
+        android:id="@+id/playButton"
+        android:layout_width="@id/preview"
+        android:layout_height="@id/preview"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/play"
+        app:layout_constraintBottom_toBottomOf="@id/preview"
+        app:layout_constraintEnd_toEndOf="@id/preview"
+        app:layout_constraintStart_toStartOf="@id/preview"
+        app:layout_constraintTop_toTopOf="@id/preview"
+        app:srcCompat="@drawable/ic_baseline_play_circle_filled_48" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/videoGroupPreview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="preview, playButton" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrierBottomPreview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="preview, playButton" />
 
     <TextView
         android:id="@+id/message"
@@ -69,27 +105,32 @@
         android:layout_marginStart="@dimen/big_common_spacing"
         android:layout_marginEnd="@dimen/big_common_spacing"
         android:text="@string/post_message"
-        app:layout_constraintTop_toTopOf="@id/barrierBottomPostHeader"
+        app:layout_constraintTop_toTopOf="@id/barrierBottomPreview"
         app:layout_constraintVertical_chainStyle="spread" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="barrierBottomPreview, message" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrierBottomMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="message"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="80dp" />
+        app:constraint_referenced_ids="message" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/likeButton"
         style="@style/Widget.AppTheme.likeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
         android:checkable="true"
         android:contentDescription="@string/like_button"
-        app:layout_constraintStart_toStartOf="parent"
+        android:padding="0dp"
+        app:layout_constraintStart_toStartOf="@id/message"
         app:layout_constraintTop_toBottomOf="@id/message"
         tools:text="100" />
 
@@ -110,10 +151,10 @@
         style="@style/Widget.AppTheme.views"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:checkable="false"
         android:contentDescription="@string/views_button"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingEnd="0dp"
+        app:layout_constraintEnd_toEndOf="@id/message"
         app:layout_constraintTop_toBottomOf="@id/message"
         tools:text="8" />
 

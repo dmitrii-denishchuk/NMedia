@@ -6,18 +6,32 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
-import ru.netology.nmedia.databinding.ActivityNewPostBinding
+import ru.netology.nmedia.databinding.ActivityNewOrEditPostBinding
+import ru.netology.nmedia.utils.hideKeyboard
 
-class NewPostActivity : AppCompatActivity() {
+class NewOrEditPostActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityNewPostBinding.inflate(layoutInflater)
+        val binding = ActivityNewOrEditPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.edit.requestFocus()
-        binding.ok.setOnClickListener {
+
+        binding.okButton.setOnClickListener {
             onOkButtonClicked(binding.edit.text?.toString())
         }
+
+        binding.cancelButton.setOnClickListener {
+            binding.edit.clearFocus()
+            binding.edit.hideKeyboard()
+            onCancelButtonClicked()
+        }
+
+        binding.edit.setText(intent.getStringExtra(POST_MESSAGE_EXTRA_KEY))
+    }
+
+    private companion object {
+        const val POST_MESSAGE_EXTRA_KEY = "postMessage"
     }
 
     private fun onOkButtonClicked(postMessage: String?) {
@@ -31,19 +45,22 @@ class NewPostActivity : AppCompatActivity() {
         finish()
     }
 
-    private companion object {
-        const val POST_MESSAGE_EXTRA_KEY = "postMessage"
+    private fun onCancelButtonClicked() {
+        setResult(Activity.RESULT_CANCELED, intent)
+        finish()
     }
 
-    object ResultContract : ActivityResultContract<Unit, String?>() {
+    object ResultContract : ActivityResultContract<String?, String?>() {
 
-        override fun createIntent(context: Context, input: Unit) =
-            Intent(context, NewPostActivity::class.java)
+        override fun createIntent(context: Context, input: String?): Intent {
+            val intent = Intent(context, NewOrEditPostActivity::class.java)
+            intent.putExtra(POST_MESSAGE_EXTRA_KEY, input)
+            return intent
+        }
 
         override fun parseResult(resultCode: Int, intent: Intent?): String? {
             if (resultCode != Activity.RESULT_OK) return null
             intent ?: return null
-
             return intent.getStringExtra(POST_MESSAGE_EXTRA_KEY)
         }
     }
