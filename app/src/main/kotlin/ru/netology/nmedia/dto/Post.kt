@@ -9,8 +9,8 @@ data class Post(
     val date: String,
     val message: String,
     val isLiked: Boolean,
-    var likes: Int,
-    var shares: Int,
-    var views: Int,
+    val likes: Int,
+    val shares: Int,
+    val views: Int,
     val video: String
 )

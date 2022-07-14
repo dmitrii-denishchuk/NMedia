@@ -13,29 +13,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nmedia"
         tools:targetApi="31">
+
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.AppActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
 
-        <activity
-            android:name=".activity.PostShareActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
             </intent-filter>
+
         </activity>
 
-        <activity
-            android:name=".activity.NewOrEditPostActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

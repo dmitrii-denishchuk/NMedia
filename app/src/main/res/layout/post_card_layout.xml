@@ -74,10 +74,11 @@
 
     <ImageButton
         android:id="@+id/playButton"
-        android:layout_width="@id/preview"
-        android:layout_height="@id/preview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/play"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/preview"
         app:layout_constraintEnd_toEndOf="@id/preview"
         app:layout_constraintStart_toStartOf="@id/preview"
@@ -90,6 +91,20 @@
         android:layout_height="wrap_content"
         android:visibility="visible"
         app:constraint_referenced_ids="preview, playButton" />
+
+    <ImageButton
+        android:id="@+id/previewPostButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/openPost"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@id/avatarImageView"
+        app:layout_constraintEnd_toStartOf="@id/menuButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/barrierBottomPostHeader"
+        app:srcCompat="@drawable/ic_baseline_play_circle_filled_48"
+        app:tint="@android:color/transparent" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrierBottomPreview"
@@ -129,7 +144,7 @@
         android:layout_height="wrap_content"
         android:checkable="true"
         android:contentDescription="@string/like_button"
-        android:padding="0dp"
+        android:paddingStart="0dp"
         app:layout_constraintStart_toStartOf="@id/message"
         app:layout_constraintTop_toBottomOf="@id/message"
         tools:text="100" />
@@ -142,6 +157,7 @@
         android:layout_marginStart="96dp"
         android:checkable="true"
         android:contentDescription="@string/share_button"
+        android:paddingStart="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/message"
         tools:text="100" />

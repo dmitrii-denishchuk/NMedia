@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
 import ru.netology.nmedia.clickListeners.PostsClickListeners
-import ru.netology.nmedia.data.slicer
+import ru.netology.nmedia.data.postRepository.impl.slicer
 import ru.netology.nmedia.databinding.PostCardLayoutBinding
 import ru.netology.nmedia.dto.Post
 
@@ -70,6 +70,10 @@ class PostsAdapter(
 
             binding.playButton.setOnClickListener {
                 clickListener.clickedPlay(post)
+            }
+
+            binding.previewPostButton.setOnClickListener {
+                clickListener.clickedPost(post)
             }
 
             binding.menuButton.setOnClickListener {
