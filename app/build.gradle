@@ -2,7 +2,6 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "org.jetbrains.kotlin.plugin.serialization" version "1.7.0"
-    id "kotlin-kapt"
 }
 
 android {
@@ -55,8 +54,6 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:2.5.0"
     implementation "androidx.navigation:navigation-ui-ktx:2.5.0"
-    implementation "androidx.room:room-runtime:2.4.2"
-    kapt "androidx.room:room-compiler:2.4.2"
 
     testImplementation "junit:junit:4.13.2"
     androidTestImplementation "junit:junit:4.13.2"

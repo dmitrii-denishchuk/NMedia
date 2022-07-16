@@ -6,14 +6,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.clickListeners.PostsClickListeners
 import ru.netology.nmedia.data.postRepository.PostRepository
-import ru.netology.nmedia.data.postRepository.impl.PostRepositoryImpl
+import ru.netology.nmedia.data.postRepository.impl.SQLiteRepository
 import ru.netology.nmedia.db.AppDb
 import ru.netology.nmedia.dto.Post
 import java.util.*
 
 class PostViewModel(application: Application) : AndroidViewModel(application), PostsClickListeners {
 
-    private val repository: PostRepository = PostRepositoryImpl(
+    private val repository: PostRepository = SQLiteRepository(
         dao = AppDb.getInstance(
             context = application
         ).postDao
