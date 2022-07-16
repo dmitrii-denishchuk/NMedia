@@ -88,13 +88,7 @@ class PostViewFragment : Fragment() {
             }
         }
 
-
-//        val postId = requireArguments().getInt("postId")
-
-//            post.id == requireArguments().getInt("postId")
-//
-//        }
-
+        viewHolder.bind(checkNotNull(viewModel.currentPost.value))
 
         return binding.root
     }

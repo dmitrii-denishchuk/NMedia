@@ -67,7 +67,7 @@ class SQLiteRepository(private val dao: PostDao) : PostRepository {
     override fun save(post: Post) {
         val id = post.id
         val saved = dao.save(post)
-        data.value = if (id != 0) {
+        data.value = if (id == 0) {
             listOf(saved) + posts
         } else posts.map {
             if (it.id != id) it else saved

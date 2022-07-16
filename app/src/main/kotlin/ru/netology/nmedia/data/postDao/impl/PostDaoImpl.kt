@@ -26,6 +26,7 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
             put(PostsTable.Column.POST_HEADER.columnName, post.postHeader)
             put(PostsTable.Column.MESSAGE.columnName, post.message)
             put(PostsTable.Column.DATE.columnName, post.date)
+            put(PostsTable.Column.VIDEO.columnName, post.video)
         }
         val id = if (post.id != 0) {
             db.update(
