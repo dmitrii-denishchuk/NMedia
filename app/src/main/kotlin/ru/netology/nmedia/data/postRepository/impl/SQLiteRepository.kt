@@ -8,9 +8,6 @@ import java.math.RoundingMode
 
 class SQLiteRepository(private val dao: PostDao) : PostRepository {
 
-//    private val posts
-//        get() = checkNotNull(data.value)
-
     override val data = MutableLiveData(dao.getAll())
 
     private var nextId = GENERATED_POST_AMOUNT
@@ -20,24 +17,6 @@ class SQLiteRepository(private val dao: PostDao) : PostRepository {
         set(value) {
             data.value = value
         }
-
-//    init {
-//        val initialPost = List(GENERATED_POST_AMOUNT) { index ->
-//            Post(
-//                id = index + 1,
-//                postHeader = "Нетология. Университет интернет-профессий",
-//                date = Date().toString(),
-//                message = "Тестовое сообщение № ${(1..100).random()}",
-//                isLiked = false,
-//                likes = 999999,
-//                shares = 995,
-//                views = (0..100).random(),
-//                video = listOf("https://youtu.be/hBTNyJ33LWI", "").random()
-//            )
-//        }
-//        data = MutableLiveData(initialPost)
-//    }
-
 
     override fun likeById(id: Int) {
         dao.likeById(id)

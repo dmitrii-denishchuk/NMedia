@@ -5,6 +5,7 @@ import android.text.Selection
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -27,6 +28,11 @@ class NewOrEditPostFragment : Fragment() {
 
         arguments?.textArg.let(binding.edit::setText)
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            savedInstanceState?.putString("draft", binding.edit.text.toString())
+            findNavController().navigateUp()
+        }
+
         binding.okButton.setOnClickListener {
             if (!binding.edit.text.isNullOrBlank()) {
                 viewModel.clickedSave(binding.edit.text.toString())
@@ -42,22 +48,24 @@ class NewOrEditPostFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        viewModel.currentPost.observe(viewLifecycleOwner) { currentPost ->
-            with(binding.edit) {
-                requestFocus()
-                showKeyboard()
-                setText(currentPost?.message)
-                Selection.setSelection(editableText, editableText.length)
-            }
-        }
-
-//        viewModel.data.observe(viewLifecycleOwner) {
-//            with(binding. edit) {
+//        viewModel.currentPost.observe(viewLifecycleOwner) { currentPost ->
+//            with(binding.edit) {
 //                requestFocus()
 //                showKeyboard()
+//                setText(currentPost?.message)
 //                Selection.setSelection(editableText, editableText.length)
 //            }
 //        }
+
+        viewModel.data.observe(viewLifecycleOwner) {
+            with(binding.edit) {
+                val msg = savedInstanceState?.getString("draft").let { it ?: "" }
+                setText(msg)
+                requestFocus()
+                showKeyboard()
+                Selection.setSelection(editableText, editableText.length)
+            }
+        }
 
         return binding.root
     }

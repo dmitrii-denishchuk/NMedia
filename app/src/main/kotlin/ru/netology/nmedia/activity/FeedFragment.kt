@@ -77,7 +77,10 @@ class FeedFragment : Fragment() {
 
             override fun clickedPost(post: Post) {
                 viewModel.clickedPost(post)
-                findNavController().navigate(R.id.action_feedFragment_to_postViewFragment, bundleOf("post.id" to post.id))
+                findNavController().navigate(
+                    R.id.action_feedFragment_to_postViewFragment,
+                    bundleOf("post.id" to post.id)
+                )
             }
         })
 
@@ -86,6 +89,11 @@ class FeedFragment : Fragment() {
         viewModel.data.observe(viewLifecycleOwner) { posts ->
             adapter.submitList(posts)
         }
+
+//        arguments?.textArg.let { binding.addPostButton.setOnClickListener {
+//            findNavController().navigate(R.id.action_feedFragment_to_newOrEditPostFragment,
+//                Bundle().apply { textArg = textArg }) }
+//        }
 
         binding.addPostButton.setOnClickListener {
             findNavController().navigate(R.id.action_feedFragment_to_newOrEditPostFragment)
