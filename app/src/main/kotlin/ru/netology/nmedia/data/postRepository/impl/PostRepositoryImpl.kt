@@ -1,74 +1,41 @@
 package ru.netology.nmedia.data.postRepository.impl
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
+import ru.netology.nmedia.data.PostDao
 import ru.netology.nmedia.data.postRepository.PostRepository
-import ru.netology.nmedia.data.postDao.PostDao
+import ru.netology.nmedia.db.toEntity
+import ru.netology.nmedia.db.toPost
 import ru.netology.nmedia.dto.Post
 import java.math.RoundingMode
 
-class SQLiteRepository(private val dao: PostDao) : PostRepository {
+class PostRepositoryImpl(private val dao: PostDao) :
+    PostRepository {
 
-    override val data = MutableLiveData(dao.getAll())
+    override val data = dao.getAll().map { entities ->
+        entities.map { it.toPost() }
+    }
 
     private var nextId = GENERATED_POST_AMOUNT
 
-    private var posts
-        get() = checkNotNull(data.value)
-        set(value) {
-            data.value = value
-        }
 
     override fun likeById(id: Int) {
         dao.likeById(id)
-        data.value = posts.map { post ->
-            if (post.id == id)
-                post.copy(
-                    isLiked = !post.isLiked,
-                    likes = if (post.isLiked) post.likes - 1 else post.likes + 1
-                )
-            else post
-        }
     }
 
     override fun shareById(id: Int) {
         dao.shareById(id)
-        data.value = posts.map { post ->
-            if (post.id == id) post.copy(shares = post.shares + 1)
-            else post
-        }
     }
 
     override fun removeById(id: Int) {
         dao.removeById(id)
-        data.value = posts.filter { it.id != id }
     }
 
     override fun save(post: Post) {
-        val id = post.id
-        val saved = dao.save(post)
-        data.value = if (id == 0) {
-            listOf(saved) + posts
-        } else posts.map {
-            if (it.id != id) it else saved
-        }
+        dao.save(post.toEntity())
     }
 
     override fun views(id: Int) {
         dao.views(id)
-        data.value = posts.map { post ->
-            if (post.id == id) post.copy(views = post.views + 1)
-            else post
-        }
-    }
-
-    fun insert(post: Post) {
-        data.value = listOf(post.copy(id = post.id + 1)) + posts
-    }
-
-    fun update(post: Post) {
-        data.value = posts.map {
-            if (it.id == post.id) post else it
-        }
     }
 
     private companion object {
