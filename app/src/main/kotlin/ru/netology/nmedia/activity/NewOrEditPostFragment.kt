@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,6 +16,7 @@ import ru.netology.nmedia.utils.StringArg
 import ru.netology.nmedia.utils.hideKeyboard
 import ru.netology.nmedia.utils.showKeyboard
 import ru.netology.nmedia.viewModel.PostViewModel
+
 
 class NewOrEditPostFragment : Fragment() {
 
@@ -31,12 +31,10 @@ class NewOrEditPostFragment : Fragment() {
         arguments?.textArg.let(binding.edit::setText)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-//            if (arguments?.getBoolean("DRAFT") == true) {
-//                viewModel.currentPost.value = Post(message = binding.edit.text.toString())
-//            } else {
-//                binding.edit.setText("")
-//                viewModel.currentPost.value = null
-//            }
+            if (viewModel.currentPost.value?.let { viewModel.data.value?.contains(it) } == true) {
+                viewModel.currentPost.value = null
+                binding.edit.setText("")
+            } else viewModel.currentPost.value = Post(message = binding.edit.text.toString())
             binding.edit.hideKeyboard()
             findNavController().navigateUp()
         }
@@ -57,8 +55,9 @@ class NewOrEditPostFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        viewModel.currentPost.observe(viewLifecycleOwner) { currentPost ->
+        viewModel.currentPost.observe(viewLifecycleOwner) {
             with(binding.edit) {
+                setText(viewModel.currentPost.value?.message)
                 requestFocus()
                 showKeyboard()
                 Selection.setSelection(editableText, editableText.length)

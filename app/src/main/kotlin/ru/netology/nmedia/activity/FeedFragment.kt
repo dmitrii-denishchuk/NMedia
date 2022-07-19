@@ -17,6 +17,7 @@ import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.clickListeners.PostsClickListeners
 import ru.netology.nmedia.databinding.FragmentFeedBinding
 import ru.netology.nmedia.dto.Post
+import ru.netology.nmedia.utils.hideKeyboard
 import ru.netology.nmedia.viewModel.PostViewModel
 
 class FeedFragment : Fragment() {
@@ -90,8 +91,7 @@ class FeedFragment : Fragment() {
         }
 
         binding.addPostButton.setOnClickListener {
-            findNavController().navigate(R.id.action_feedFragment_to_newOrEditPostFragment,
-                bundleOf( "DRAFT" to true))
+            findNavController().navigate(R.id.action_feedFragment_to_newOrEditPostFragment)
         }
 
         return binding.root
