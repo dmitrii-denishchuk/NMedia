@@ -24,17 +24,15 @@ class PostViewFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val binding = FragmentPostViewBinding.inflate(
+    ) : View { val binding = FragmentPostViewBinding.inflate(
             inflater,
             container,
             false
-        )
+    )
 
         val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
-        val viewHolder =
-            PostsAdapter.ViewHolder(binding.postCardLayout, object : PostsClickListeners {
+        val viewHolder = PostsAdapter.ViewHolder(binding.postCardLayout, object : PostsClickListeners {
                 override fun clickedLike(post: Post) {
                     viewModel.clickedLike(post)
                 }
@@ -74,7 +72,6 @@ class PostViewFragment : Fragment() {
                         val playIntent = Intent.createChooser(intent, post.postHeader)
                         startActivity(playIntent)
                     }
-
                 }
 
                 override fun clickedPost(post: Post) {
@@ -83,12 +80,9 @@ class PostViewFragment : Fragment() {
             })
 
         viewModel.data.observe(viewLifecycleOwner) { posts ->
-            posts.filter { post ->
-                post.id == requireArguments().getInt("postId")
-            }
+            val post = posts.first { it.id == arguments?.getInt("id") }
+            viewHolder.bind(post)
         }
-
-        viewHolder.bind(checkNotNull(viewModel.currentPost.value))
 
         return binding.root
     }
