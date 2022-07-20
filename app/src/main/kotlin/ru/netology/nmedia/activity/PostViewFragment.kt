@@ -24,15 +24,17 @@ class PostViewFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) : View { val binding = FragmentPostViewBinding.inflate(
+    ): View {
+        val binding = FragmentPostViewBinding.inflate(
             inflater,
             container,
             false
-    )
+        )
 
         val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
-        val viewHolder = PostsAdapter.ViewHolder(binding.postCardLayout, object : PostsClickListeners {
+        val viewHolder =
+            PostsAdapter.ViewHolder(binding.postCardLayout, object : PostsClickListeners {
                 override fun clickedLike(post: Post) {
                     viewModel.clickedLike(post)
                 }
@@ -58,7 +60,8 @@ class PostViewFragment : Fragment() {
                 override fun clickedEdit(post: Post) {
                     viewModel.clickedEdit(post)
                     findNavController().navigate(R.id.action_postViewFragment_to_newOrEditPostFragment,
-                        Bundle().apply { textArg = post.message })
+                        Bundle().apply { textArg = post.message }
+                    )
                 }
 
                 override fun clickedPlay(post: Post) {
@@ -77,12 +80,18 @@ class PostViewFragment : Fragment() {
                 override fun clickedPost(post: Post) {
                     binding.postCardLayout.previewPostButton.visibility = View.GONE
                 }
-            })
+            }
+        )
 
         viewModel.data.observe(viewLifecycleOwner) { posts ->
-            val post = posts.first { it.id == arguments?.getInt("id") }
+            val post = posts.firstOrNull { it.id == arguments?.getInt("id") } ?: Post()
             viewHolder.bind(post)
         }
+
+//        viewModel.data.observe(viewLifecycleOwner) { posts ->
+//            val post = posts.firstOrNull { it.id == arguments?.getInt("id") } ?: Post()
+//            viewHolder.bind(post)
+//        }
 
         return binding.root
     }

@@ -77,7 +77,6 @@ class FeedFragment : Fragment() {
             }
 
             override fun clickedPost(post: Post) {
-//                viewModel.clickedPost(post)
                 findNavController().navigate(R.id.action_feedFragment_to_postViewFragment,
                     bundleOf("id" to post.id)
                 )
