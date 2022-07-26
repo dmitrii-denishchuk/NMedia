@@ -6,14 +6,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.clickListeners.PostsClickListeners
 import ru.netology.nmedia.data.postRepository.PostRepository
-import ru.netology.nmedia.data.postRepository.impl.SQLiteRepository
+import ru.netology.nmedia.data.postRepository.impl.PostRepositoryImpl
 import ru.netology.nmedia.db.AppDb
 import ru.netology.nmedia.dto.Post
 import java.util.*
 
 class PostViewModel(application: Application) : AndroidViewModel(application), PostsClickListeners {
 
-    private val repository: PostRepository = SQLiteRepository(
+    private val repository: PostRepository = PostRepositoryImpl(
         dao = AppDb.getInstance(
             context = application
         ).postDao
@@ -28,17 +28,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application), P
         if (message.isBlank()) return
         val somePost = currentPost.value?.copy(
             message = message
-        ) ?: Post(
-            id = PostRepository.NEW_POST_ID,
-            postHeader = "Я",
-            date = Date().toString(),
-            message = message,
-            isLiked = false,
-            likes = 0,
-            shares = 0,
-            views = 0,
-            video = "https://youtu.be/hBTNyJ33LWI"
-        )
+        ) ?: Post(message = message)
         repository.save(somePost)
         currentPost.value = null
     }

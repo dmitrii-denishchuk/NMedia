@@ -11,10 +11,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import ru.netology.nmedia.databinding.FragmentNewOrEditPostBinding
+import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.utils.StringArg
 import ru.netology.nmedia.utils.hideKeyboard
 import ru.netology.nmedia.utils.showKeyboard
 import ru.netology.nmedia.viewModel.PostViewModel
+
 
 class NewOrEditPostFragment : Fragment() {
 
@@ -29,15 +31,20 @@ class NewOrEditPostFragment : Fragment() {
         arguments?.textArg.let(binding.edit::setText)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            savedInstanceState?.putString("draft", binding.edit.text.toString())
+            if (viewModel.currentPost.value?.let { viewModel.data.value?.contains(it) } == true) {
+                viewModel.currentPost.value = null
+                binding.edit.setText("")
+            } else viewModel.currentPost.value = Post(message = binding.edit.text.toString())
+            binding.edit.hideKeyboard()
             findNavController().navigateUp()
         }
 
         binding.okButton.setOnClickListener {
-            if (!binding.edit.text.isNullOrBlank()) {
-                viewModel.clickedSave(binding.edit.text.toString())
-//                viewModel.clickedEdit()
-            } else Snackbar.make(binding.root, "Пустое сообщение", 1000).show()
+            while (binding.edit.text.isNullOrBlank()) {
+                Snackbar.make(binding.root, "Пустое сообщение", 1000).show()
+                return@setOnClickListener
+            }
+            viewModel.clickedSave(binding.edit.text.toString())
             binding.edit.hideKeyboard()
             findNavController().navigateUp()
         }
@@ -48,19 +55,9 @@ class NewOrEditPostFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-//        viewModel.currentPost.observe(viewLifecycleOwner) { currentPost ->
-//            with(binding.edit) {
-//                requestFocus()
-//                showKeyboard()
-//                setText(currentPost?.message)
-//                Selection.setSelection(editableText, editableText.length)
-//            }
-//        }
-
-        viewModel.data.observe(viewLifecycleOwner) {
+        viewModel.currentPost.observe(viewLifecycleOwner) {
             with(binding.edit) {
-                val msg = savedInstanceState?.getString("draft").let { it ?: "" }
-                setText(msg)
+                setText(viewModel.currentPost.value?.message)
                 requestFocus()
                 showKeyboard()
                 Selection.setSelection(editableText, editableText.length)

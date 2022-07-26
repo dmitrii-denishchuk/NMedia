@@ -60,7 +60,8 @@ class PostViewFragment : Fragment() {
                 override fun clickedEdit(post: Post) {
                     viewModel.clickedEdit(post)
                     findNavController().navigate(R.id.action_postViewFragment_to_newOrEditPostFragment,
-                        Bundle().apply { textArg = post.message })
+                        Bundle().apply { textArg = post.message }
+                    )
                 }
 
                 override fun clickedPlay(post: Post) {
@@ -74,21 +75,23 @@ class PostViewFragment : Fragment() {
                         val playIntent = Intent.createChooser(intent, post.postHeader)
                         startActivity(playIntent)
                     }
-
                 }
 
                 override fun clickedPost(post: Post) {
                     binding.postCardLayout.previewPostButton.visibility = View.GONE
                 }
-            })
+            }
+        )
 
         viewModel.data.observe(viewLifecycleOwner) { posts ->
-            posts.filter { post ->
-                post.id == requireArguments().getInt("postId")
-            }
+            val post = posts.firstOrNull { it.id == arguments?.getInt("id") } ?: Post()
+            viewHolder.bind(post)
         }
 
-        viewHolder.bind(checkNotNull(viewModel.currentPost.value))
+//        viewModel.data.observe(viewLifecycleOwner) { posts ->
+//            val post = posts.firstOrNull { it.id == arguments?.getInt("id") } ?: Post()
+//            viewHolder.bind(post)
+//        }
 
         return binding.root
     }

@@ -17,6 +17,7 @@ import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.clickListeners.PostsClickListeners
 import ru.netology.nmedia.databinding.FragmentFeedBinding
 import ru.netology.nmedia.dto.Post
+import ru.netology.nmedia.utils.hideKeyboard
 import ru.netology.nmedia.viewModel.PostViewModel
 
 class FeedFragment : Fragment() {
@@ -76,10 +77,8 @@ class FeedFragment : Fragment() {
             }
 
             override fun clickedPost(post: Post) {
-                viewModel.clickedPost(post)
-                findNavController().navigate(
-                    R.id.action_feedFragment_to_postViewFragment,
-                    bundleOf("post.id" to post.id)
+                findNavController().navigate(R.id.action_feedFragment_to_postViewFragment,
+                    bundleOf("id" to post.id)
                 )
             }
         })
@@ -89,11 +88,6 @@ class FeedFragment : Fragment() {
         viewModel.data.observe(viewLifecycleOwner) { posts ->
             adapter.submitList(posts)
         }
-
-//        arguments?.textArg.let { binding.addPostButton.setOnClickListener {
-//            findNavController().navigate(R.id.action_feedFragment_to_newOrEditPostFragment,
-//                Bundle().apply { textArg = textArg }) }
-//        }
 
         binding.addPostButton.setOnClickListener {
             findNavController().navigate(R.id.action_feedFragment_to_newOrEditPostFragment)
