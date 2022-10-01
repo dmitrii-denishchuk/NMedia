@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/big_common_spacing">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/avatarImageView"
         android:layout_width="@dimen/avatar_view_size"
         android:layout_height="@dimen/avatar_view_size"
         android:layout_marginStart="@dimen/big_common_spacing"
+        android:background="#AC1A1A"
         android:contentDescription="@string/avatar_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_netology" />
+        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <TextView
         android:id="@+id/postHeader"
@@ -64,13 +67,12 @@
     <ImageView
         android:id="@+id/preview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="180dp"
         android:layout_marginStart="@dimen/big_common_spacing"
         android:layout_marginEnd="@dimen/big_common_spacing"
         android:background="#C8C8C8"
         android:contentDescription="@string/preview"
-        app:layout_constraintTop_toTopOf="@id/barrierBottomPostHeader"
-        app:srcCompat="@drawable/ic_banner_foreground" />
+        app:layout_constraintTop_toTopOf="@id/barrierBottomPostHeader" />
 
     <ImageButton
         android:id="@+id/playButton"
@@ -99,10 +101,10 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/openPost"
         android:visibility="visible"
-        app:layout_constraintStart_toStartOf="@id/avatarImageView"
-        app:layout_constraintEnd_toStartOf="@id/menuButton"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/barrierBottomPostHeader"
+        app:layout_constraintEnd_toStartOf="@id/menuButton"
+        app:layout_constraintStart_toStartOf="@id/avatarImageView"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_play_circle_filled_48"
         app:tint="@android:color/transparent" />
 
@@ -113,15 +115,14 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="preview, playButton" />
 
-    <TextView
+    <com.uncopt.android.widget.text.justify.JustifiedTextView
         android:id="@+id/message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/big_common_spacing"
-        android:layout_marginEnd="@dimen/big_common_spacing"
+        android:layout_marginHorizontal="@dimen/big_common_spacing"
         android:text="@string/post_message"
         app:layout_constraintTop_toTopOf="@id/barrierBottomPreview"
-        app:layout_constraintVertical_chainStyle="spread" />
+        tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/groupMessage"

@@ -7,11 +7,13 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.netology.nmedia.R
 import ru.netology.nmedia.clickListeners.PostsClickListeners
 import ru.netology.nmedia.data.postRepository.impl.slicer
 import ru.netology.nmedia.databinding.PostCardLayoutBinding
 import ru.netology.nmedia.dto.Post
+
 
 class PostsAdapter(
     private val clickListener: PostsClickListeners
@@ -84,10 +86,15 @@ class PostsAdapter(
         fun bind(post: Post) {
             this.post = post
             with(binding) {
-                if (post.video.isNotEmpty()) videoGroupPreview.visibility =
-                    View.VISIBLE else videoGroupPreview.visibility = View.GONE
+                if (post.video.isNotEmpty()) {
+                    videoGroupPreview.visibility = View.VISIBLE
+                    Glide.with(preview.context)
+                        .load("https://img.youtube.com/vi/hBTNyJ33LWI/0.jpg")
+                        .into(preview)
+                } else videoGroupPreview.visibility = View.GONE
                 if (post.message.isNotEmpty()) groupMessage.visibility =
-                    View.VISIBLE else groupMessage.visibility = View.GONE
+                    View.VISIBLE
+                else groupMessage.visibility = View.GONE
                 postHeader.text = post.postHeader
                 postDate.text = post.date
                 message.text = post.message

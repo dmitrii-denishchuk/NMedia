@@ -1,6 +1,7 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.Nmedia" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Nmedia"
+        parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -14,25 +15,30 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Widget.AppTheme.likeButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+    <style name="Widget.AppTheme.likeButton"
+        parent="Widget.MaterialComponents.Button.TextButton.Icon">
         <item name="icon">@drawable/ic_like_24</item>
         <item name="iconTint">@color/like_button_tint</item>
+        <item name="rippleColor">@android:color/transparent</item>
         <item name="android:textColor">@color/buttons_text_tint</item>
         <item name="backgroundTint">@android:color/transparent</item>
         <item name="android:minWidth">@dimen/avatar_view_size</item>
         <item name="android:minHeight">@dimen/avatar_view_size</item>
     </style>
 
-    <style name="Widget.AppTheme.shareButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+    <style name="Widget.AppTheme.shareButton"
+        parent="Widget.MaterialComponents.Button.TextButton.Icon">
         <item name="icon">@drawable/ic_share_24</item>
         <item name="iconTint">@color/other_buttons_tint</item>
+        <item name="rippleColor">@android:color/transparent</item>
         <item name="android:textColor">@color/buttons_text_tint</item>
         <item name="backgroundTint">@android:color/transparent</item>
         <item name="android:minWidth">@dimen/avatar_view_size</item>
         <item name="android:minHeight">@dimen/avatar_view_size</item>
     </style>
 
-    <style name="Widget.AppTheme.views" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+    <style name="Widget.AppTheme.views"
+        parent="Widget.MaterialComponents.Button.TextButton.Icon">
         <item name="icon">@drawable/ic_views_24</item>
         <item name="iconTint">@color/other_buttons_tint</item>
         <item name="android:textColor">@color/buttons_text_tint</item>
@@ -42,7 +48,8 @@
         <item name="android:minHeight">@dimen/avatar_view_size</item>
     </style>
 
-    <style name="Widget.AppTheme.menuButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+    <style name="Widget.AppTheme.menuButton"
+        parent="Widget.MaterialComponents.Button.TextButton.Icon">
         <item name="icon">@drawable/ic_menu_24</item>
         <item name="iconTint">@color/other_buttons_tint</item>
         <item name="backgroundTint">@android:color/transparent</item>
@@ -51,13 +58,19 @@
         <item name="android:insetBottom">0dp</item>
         <item name="android:paddingLeft">12dp</item>
         <item name="android:paddingRight">12dp</item>
+        <item name="rippleColor">@android:color/transparent</item>
         <item name="android:minWidth">@dimen/avatar_view_size</item>
         <item name="android:minHeight">@dimen/avatar_view_size</item>
     </style>
 
-    <style name="Widget.AppTheme.cancelButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton.Icon">
+    <style name="Widget.AppTheme.cancelButton"
+        parent="Widget.MaterialComponents.ExtendedFloatingActionButton.Icon">
         <item name="icon">@drawable/ic_baseline_close_24</item>
-        <item name="backgroundTint">#FF0000</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
     </style>
 
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

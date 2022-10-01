@@ -9,7 +9,6 @@ import ru.netology.nmedia.data.postRepository.PostRepository
 import ru.netology.nmedia.data.postRepository.impl.PostRepositoryImpl
 import ru.netology.nmedia.db.AppDb
 import ru.netology.nmedia.dto.Post
-import java.util.*
 
 class PostViewModel(application: Application) : AndroidViewModel(application), PostsClickListeners {
 

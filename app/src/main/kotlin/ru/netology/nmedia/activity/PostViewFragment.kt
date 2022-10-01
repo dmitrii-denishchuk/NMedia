@@ -80,18 +80,12 @@ class PostViewFragment : Fragment() {
                 override fun clickedPost(post: Post) {
                     binding.postCardLayout.previewPostButton.visibility = View.GONE
                 }
-            }
-        )
+            })
 
         viewModel.data.observe(viewLifecycleOwner) { posts ->
             val post = posts.firstOrNull { it.id == arguments?.getInt("id") } ?: Post()
             viewHolder.bind(post)
         }
-
-//        viewModel.data.observe(viewLifecycleOwner) { posts ->
-//            val post = posts.firstOrNull { it.id == arguments?.getInt("id") } ?: Post()
-//            viewHolder.bind(post)
-//        }
 
         return binding.root
     }

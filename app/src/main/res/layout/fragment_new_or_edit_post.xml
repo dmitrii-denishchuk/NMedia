@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.NewOrEditPostFragment">
 
-    <EditText
+    <com.uncopt.android.widget.text.justify.JustifiedEditText
         android:id="@+id/edit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
